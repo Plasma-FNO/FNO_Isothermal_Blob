@@ -363,12 +363,7 @@ class LpLoss(object):
 
 
 # %% 
-x_grid = np.arange(0, 106)
-y_grid = np.arange(0, 106)
-S = 106 #Grid Size
-size_x = S
-size_y = S
-
+#Extracting the configuration settings
 
 modes = configuration['Modes']
 width_time = configuration['Width_time']
