@@ -765,6 +765,8 @@ if configuration['Log Normalisation'] == 'Yes':
 # idx = np.random.randint(0,ntest) 
 
 from mpl_toolkits.axes_grid1 import make_axes_locatable
+import matplotlib as mpl
+mpl.rcParams['font.size']=16
 
 output_plot = []
 for dim in range(num_vars):
@@ -779,12 +781,12 @@ for dim in range(num_vars):
     v_min_3 = torch.min(u_field[dim, :, :, -1])
     v_max_3 = torch.max(u_field[dim, :, :, -1])
 
-    fig = plt.figure(figsize=(10, 6))
+    fig = plt.figure(figsize=(10, 7))
     ax = fig.add_subplot(2,3,1)
     pcm =ax.imshow(u_field[dim,:,:,0], cmap=cm.coolwarm, extent=[9.5, 10.5, -0.5, 0.5], vmin=v_min_1, vmax=v_max_1)
     # ax.title.set_text('Initial')
     ax.title.set_text('t='+ str(T_in))
-    ax.set_ylabel('Solution')
+    ax.set_ylabel('Solution', weight='bold')
     divider = make_axes_locatable(ax)
     cax = divider.append_axes("right", size="5%", pad=0.1)
     cbar = fig.colorbar(pcm, cax=cax)
@@ -816,7 +818,7 @@ for dim in range(num_vars):
 
     ax = fig.add_subplot(2,3,4)
     pcm = ax.imshow(u_field[dim,:,:,0], cmap=cm.coolwarm, extent=[9.5, 10.5, -0.5, 0.5], vmin=v_min_1, vmax=v_max_1)
-    ax.set_ylabel('FNO')
+    ax.set_ylabel('FNO', weight='bold')
     divider = make_axes_locatable(ax)
     cax = divider.append_axes("right", size="5%", pad=0.1)
     cbar = fig.colorbar(pcm, cax=cax)
@@ -840,6 +842,8 @@ for dim in range(num_vars):
     cbar = fig.colorbar(pcm, cax=cax)
     cbar.formatter.set_powerlimits((0, 0))
 
+    plt.savefig("isothermal_" + dims[dim] + "_impulsive-cover.pdf", format="pdf", bbox_inches='tight', transparent='True')
+
 # %%
 #Error Plots
 
@@ -856,12 +860,12 @@ for dim in range(num_vars):
     v_min_3 = torch.min(u_field[dim, :, :, -1])
     v_max_3 = torch.max(u_field[dim, :, :, -1])
 
-    fig = plt.figure(figsize=(10, 10))
+    fig = plt.figure(figsize=(10, 11))
     ax = fig.add_subplot(3,3,1)
     pcm =ax.imshow(u_field[dim,:,:,0], cmap=cm.coolwarm, extent=[9.5, 10.5, -0.5, 0.5], vmin=v_min_1, vmax=v_max_1)
     # ax.title.set_text('Initial')
     ax.title.set_text('t='+ str(T_in))
-    ax.set_ylabel('Solution')
+    ax.set_ylabel('Solution', weight='bold')
     divider = make_axes_locatable(ax)
     cax = divider.append_axes("right", size="5%", pad=0.1)
     cbar = fig.colorbar(pcm, cax=cax)
@@ -893,7 +897,7 @@ for dim in range(num_vars):
 
     ax = fig.add_subplot(3,3,4)
     pcm = ax.imshow(u_field[dim,:,:,0], cmap=cm.coolwarm, extent=[9.5, 10.5, -0.5, 0.5], vmin=v_min_1, vmax=v_max_1)
-    ax.set_ylabel('FNO')
+    ax.set_ylabel('FNO', weight='bold')
     divider = make_axes_locatable(ax)
     cax = divider.append_axes("right", size="5%", pad=0.1)
     cbar = fig.colorbar(pcm, cax=cax)
@@ -921,7 +925,7 @@ for dim in range(num_vars):
 
     ax = fig.add_subplot(3,3,7)
     pcm = ax.imshow(u_field[dim,:,:,0], cmap=cm.coolwarm, extent=[9.5, 10.5, -0.5, 0.5])
-    ax.set_ylabel('Abs Error')
+    ax.set_ylabel('Abs Error', weight='bold')
     divider = make_axes_locatable(ax)
     cax = divider.append_axes("right", size="5%", pad=0.1)
     cbar = fig.colorbar(pcm, cax=cax)
@@ -944,6 +948,8 @@ for dim in range(num_vars):
     cax = divider.append_axes("right", size="5%", pad=0.1)
     cbar = fig.colorbar(pcm, cax=cax)
     cbar.formatter.set_powerlimits((0, 0))
+
+    plt.savefig("isothermal_" + dims[dim] + "_impulsive-cover_err.pdf", format="pdf", bbox_inches='tight', transparent='True')
 
 
 # %%
@@ -1593,6 +1599,7 @@ for field in dims:
     ax.axes.yaxis.set_ticks([])
     fig.colorbar(pcm, pad=0.05)
 
+# %%
     #Plotting the error growth across time.
     err = [] 
 
