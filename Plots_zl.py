@@ -751,11 +751,11 @@ err_phi = np.asarray(err_phi)
 # %% 
 if configuration["Physics Normalisation"] == 'Yes':
     pred_set[:,0:1,...] = pred_set[:,0:1,...] * 1e20
-    pred_set[:,1:2,...] = pred_set[:,1:2,...] * 1e5
+    pred_set[:,1:2,...] = pred_set[:,1:2,...] * 1e5 / 1e2
 
 
     test_u[:,0:1,...] = test_u[:,0:1,...] * 1e20
-    test_u[:,1:2,...] = test_u[:,1:2,...] * 1e5
+    test_u[:,1:2,...] = test_u[:,1:2,...] * 1e5 / 1e2
 
 # %%
 #Plotting the comparison plots
@@ -843,11 +843,11 @@ for dim in range(num_vars):
     cbar = fig.colorbar(pcm, cax=cax)
     cbar.formatter.set_powerlimits((0, 0))
     
-    plt.savefig("isothmermal_" + dims[dim] + "_" + str(idx) + "_crunchy-mead.pdf", format="pdf", bbox_inches='tight', transparent='True')
+    plt.savefig("isothermal_" + dims[dim] + "_" + str(idx) + "_forward-canal.pdf", format="pdf", bbox_inches='tight', transparent='True')
 
 # %% 
 #Error Plots
-idx = 5
+idx = 10
 output_plot = []
 for dim in range(num_vars):
     u_field = test_u[idx]
@@ -950,7 +950,7 @@ for dim in range(num_vars):
     cbar = fig.colorbar(pcm, cax=cax)   
     cbar.formatter.set_powerlimits((0, 0))
 
-    plt.savefig("isothermal_" + dims[dim] + "_" + str(idx) + "_crunchy-mead.pdf", format="pdf", bbox_inches='tight', transparent='True')
+    plt.savefig("isothermal_" + dims[dim] + "_" + str(idx) + "_forward-canal_err.pdf", format="pdf", bbox_inches='tight', transparent='True')
 
 
 
@@ -1651,11 +1651,11 @@ for field in dims:
             pred_set = pred_set * 1e20
             test_u = test_u * 1e20
         if field == 'Phi':
-            pred_set = pred_set * 1e5
-            test_u = test_u * 1e5
+            pred_set = pred_set * 1e5 / 1e2
+            test_u = test_u * 1e5 / 1e2
         if field == 'T':
-            pred_set= pred_set * 1e6
-            test_u = test_u * 1e6
+            pred_set= pred_set * 1e6 / 1e4
+            test_u = test_u * 1e6 / 1e4
 
     #Plotting the comparison plots
 
